@@ -66,7 +66,7 @@ class DslTest {
         val resBadJson = validate(responseBadJson) {
             body {
                 json {
-                    field<Any>("foo") { present() }
+                    field("foo") { present() }
                 }
             }
         }
@@ -78,8 +78,8 @@ class DslTest {
         val resFields = validate(responseFields) {
             body {
                 json {
-                    field<Any>("xyz_missing") { present() }
-                    field<Any>("id") { present() }
+                    field("xyz_missing") { present() }
+                    field("id") { present() }
                     field("temp") { equalTo(111L) }
                     field("val") { equalTo("999") }
                 }
@@ -99,7 +99,7 @@ class DslTest {
         val result = validate(response) {
             body {
                 json {
-                    field<Int>("temp") { equalTo(111) }
+                    field("temp") { equalTo(111) }
                 }
             }
         }
@@ -122,7 +122,7 @@ class DslTest {
             header("X-Type") { startsWith("expected_prefix_123") }
             body {
                 json {
-                    field<Any>("some_id") { present() }
+                    field("some_id") { present() }
                 }
             }
         }
@@ -177,7 +177,7 @@ class DslTest {
         val response = HttpResponse(500, emptyMap(), "{ broken json }")
         val result = validate(response) {
             status { equalTo(200) }
-            body { json { field<Any>("id") { present() } } }
+            body { json { field("id") { present() } } }
         }
         assertFalse(result.isValid)
         val errors = formatErrors(result)
@@ -203,7 +203,7 @@ class DslTest {
     fun `test independent sequential runs with re-used configuration block`() {
         val configBlock: ResponseBuilder.() -> Unit = {
             status { equalTo(200) }
-            body { json { field<Long>("id") { equalTo(42L) } } }
+            body { json { field("id") { equalTo(42L) } } }
         }
 
         val goodResponse1 = HttpResponse(200, emptyMap(), """{"id": 42}""")

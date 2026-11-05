@@ -122,30 +122,30 @@ class JsonObjectBuilder internal constructor(
     private val path: ValidationPath,
     private val errors: MutableList<Error>
 ) {
-    fun <T : Any> field(name: String, init: JsonFieldBuilder<T>.() -> Unit) {
+    fun field(name: String, init: JsonFieldBuilder.() -> Unit) {
         val fieldPath = path.append(PathSegment.Property(name))
         val exists = fields.containsKey(name)
         val value = fields[name]
 
-        JsonFieldBuilder<T>(fieldPath, exists, value, errors).init()
+        JsonFieldBuilder(fieldPath, exists, value, errors).init()
     }
 }
 
 @ResponseDsl
-class JsonFieldBuilder<T : Any> internal constructor(
-    val path: ValidationPath,
-    val isPresent: Boolean,
-    val actualValue: Any?,
+class JsonFieldBuilder internal constructor(
+    private val path: ValidationPath,
+    private val isPresent: Boolean,
+    private val actualValue: Any?,
     private val errors: MutableList<Error>
 ) {
     fun present() {
         if (!isPresent) errors.addMissing(path, "present")
     }
 
-    fun equalTo(expected: T?) {
+    fun <T : Any> equalTo(expected: T) {
         when {
             !isPresent ->
-                errors.addMissing(path, "present")
+                errors.addMissing(path, "equal to $expected")
             actualValue != expected || actualValue?.javaClass != expected?.javaClass ->
                 errors.addMismatch(path, expected, actualValue)
         }
