@@ -30,7 +30,7 @@ fun check04(response: HttpResponse): ValidationResult {
         status { equalTo(200) }
         body {
             json {
-                field<Any>("id") { present() }
+                field("id") { present() }
                 field("name") { equalTo("Ivanov") }
             }
         }
