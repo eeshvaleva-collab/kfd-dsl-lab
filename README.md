@@ -46,10 +46,10 @@ val result = validate(response) {
     }
     body {
         json {
-            field<Long>("id") {
+            field("id") {
                 equalTo(42L)
             }
-            field<String>("name") {
+            field("name") {
                 equalTo("Ivanov")
             }
         }
