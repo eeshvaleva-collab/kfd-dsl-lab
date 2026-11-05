@@ -76,7 +76,7 @@ body.json.id: expected present, actual <missing>
 *   **`StatusBuilder`**: Отвечает за проверку равенства статус-кода (`equalTo`)
 *   **`HeaderBuilder`**: Валидирует строковые значения заголовков (`equalTo`, `startsWith`) и предоставляет кастомную предикативную проверку через `satisfies(description, predicate)`
 *   **`BodyBuilder`**: Проверяет верхнеуровневое состояние тела (`isEmpty`, `isNotEmpty`) и инициирует разбор JSON через блок `json { ... }`
-*   **`JsonObjectBuilder`**: Предоставляет строго типизированный доступ к проверке конкретных полей JSON через вызов `field<T>(name) { ... }`
+*   **`JsonObjectBuilder`**: Предоставляет доступ к проверке конкретных полей JSON через вызов `field(name) { ... }`
 *   **`JsonFieldBuilder<T>`**: Выполняет локальные проверки конкретного поля (`present`, `equalTo`)
 
 ### 2. Ключевые архитектурные решения
