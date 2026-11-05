@@ -145,7 +145,7 @@ class JsonFieldBuilder<T : Any> internal constructor(
     fun equalTo(expected: T?) {
         when {
             !isPresent ->
-                errors.addMissing(path, "equal to $expected")
+                errors.addMissing(path, "present")
             actualValue != expected || actualValue?.javaClass != expected?.javaClass ->
                 errors.addMismatch(path, expected, actualValue)
         }

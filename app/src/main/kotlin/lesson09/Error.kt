@@ -22,7 +22,7 @@ sealed interface Error {
 
     data class MissingProperty(
         override val path: ValidationPath,
-        val expected: Any?
+        val expected: Any
     ) : Error
 
     data class ParseFailure(
@@ -76,7 +76,7 @@ internal fun MutableList<Error>.addMismatch(path: ValidationPath, expected: Any?
     add(Error.ValueMismatch(path, expected, actual))
 }
 
-internal fun MutableList<Error>.addMissing(path: ValidationPath, expected: Any?) {
+internal fun MutableList<Error>.addMissing(path: ValidationPath, expected: Any) {
     add(Error.MissingProperty(path, expected))
 }
 
